@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 
 class Author(models.Model):
@@ -31,7 +32,7 @@ class News(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tags)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     
     def __str__(self):

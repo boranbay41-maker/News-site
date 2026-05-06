@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Последние новости</title>
+    <title>NewsTalk - Свежие новости</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -13,217 +13,192 @@
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-logo">
-                <i class="fas fa-newspaper"></i> NewsSite
+                <i class="fas fa-newspaper"></i>
+                <span>NewsTalk</span>
+            </div>
+            <div class="nav-search">
+                <input type="text" placeholder="Поиск новостей...">
+                <button><i class="fas fa-search"></i></button>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-home"></i> Главная</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-globe"></i> Мир</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-flag"></i> Узбекистан</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Экономика</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-football-ball"></i> Спорт</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-theater-masks"></i> Культура</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-microchip"></i> Технологии</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-heartbeat"></i> Здоровье</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-graduation-cap"></i> Образование</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fas fa-leaf"></i> Экология</a>
-                </li>
+                <li><a href="#" class="nav-link active"><i class="fas fa-home"></i> Главная</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-globe"></i> Мир</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-flag"></i> Узбекистан</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Экономика</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-microchip"></i> Технологии</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Featured Article -->
-    <section class="featured-section">
-        <div class="featured-article">
-            <img src="{% static 'images/images.jfif' %}" alt="Главная новость" class="featured-image">
-            <div class="featured-content">
-                <span class="featured-category">Главная новость</span>
-                <h1 class="featured-title">Крупные события дня освещены в нашей ленте новостей</h1>
-                <p class="featured-text">Узнайте о самых важных событиях, происходящих в мире прямо сейчас.</p>
-                <a href="#" class="read-more-btn">Читать полностью</a>
+    <!-- Featured Hero Section -->
+    {% if news %}
+    {% with featured=news.0 %}
+    <section class="hero-section">
+        <div class="hero-container">
+            <div class="hero-left">
+                {% if featured.image %}
+                <img src="{{ featured.image.url }}" alt="{{ featured.title }}" class="hero-image">
+                {% else %}
+                <img src="{% static 'media/images.jfif' %}" alt="{{ featured.title }}" class="hero-image">
+                {% endif %}
+                <div class="hero-overlay">
+                    <span class="featured-badge">
+                        <i class="fas fa-star"></i> Главное
+                    </span>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-category">{{ featured.category.name }}</div>
+                <h1 class="hero-title">{{ featured.title }}</h1>
+                <p class="hero-excerpt">{{ featured.content|truncatewords:30 }}</p>
+                <div class="hero-meta">
+                    <span class="meta-item">
+                        <i class="fas fa-user"></i> {{ featured.author.name }} {{ featured.author.surname }}
+                    </span>
+                    <span class="meta-item">
+                        <i class="fas fa-calendar"></i> {{ featured.created_at|date:"d M Y" }}
+                    </span>
+                </div>
+                <a href="/product/{{ featured.id }}/" class="read-more-btn">
+                    Читать полностью <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
+    {% endwith %}
+    {% endif %}
 
-    <!-- News Grid -->
-    <section class="news-section">
-        <div class="container">
-            <h2 class="section-title">Последние новости</h2>
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Latest News Section -->
+        <section class="news-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-bolt"></i> Последние новости
+                </h2>
+                <div class="view-all">Все новости</div>
+            </div>
+
             <div class="news-grid">
-                <!-- News Card 1 -->
-                <article class="news-card">
-                    <div class="news-image">
-                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
-                        <span class="news-category-badge">Мир</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Важные события на мировой арене</h3>
-                        <p class="news-excerpt">Новые договоры и соглашения между странами влияют на мировую политику...</p>
-                        <div class="news-meta">
-                            <span class="news-date"><i class="fas fa-calendar"></i> 5 мая 2026</span>
-                            <span class="news-time"><i class="fas fa-clock"></i> 10:30</span>
+                {% for item in news %}
+                    {% if not forloop.first %}
+                    <article class="news-card">
+                        <div class="card-image-wrapper">
+                            {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}" class="card-image">
+                            {% else %}
+                            <img src="{% static 'media/images.jfif' %}" alt="{{ item.title }}" class="card-image">
+                            {% endif %}
+                            <span class="category-badge">{{ item.category.name }}</span>
+                            <div class="trending-badge">
+                                <i class="fas fa-fire"></i> Популярное
+                            </div>
                         </div>
-                    </div>
-                </article>
-
-                <!-- News Card 2 -->
-                <article class="news-card">
-                    <div class="news-image">
-                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
-                        <span class="news-category-badge economy">Экономика</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Экономический рост показывает положительную динамику</h3>
-                        <p class="news-excerpt">Последние данные свидетельствуют об улучшении экономических показателей...</p>
-                        <div class="news-meta">
-                            <span class="news-date"><i class="fas fa-calendar"></i> 5 мая 2026</span>
-                            <span class="news-time"><i class="fas fa-clock"></i> 09:15</span>
+                        <div class="card-content">
+                            <h3 class="card-title">{{ item.title }}</h3>
+                            <p class="card-excerpt">{{ item.content|truncatewords:20 }}</p>
+                            <div class="card-footer">
+                                <div class="card-meta">
+                                    <div>
+                                        <div class="author-name">{{ item.author.name }}</div>
+                                        <div class="card-date">{{ item.created_at|date:"d M" }}</div>
+                                    </div>
+                                </div>
+                                <a href="/product/{{ item.id }}/" class="card-link" title="Читать">
+                                    <i class="fas fa-chevron-right"></i>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </article>
-
-                <!-- News Card 3 -->
-                <article class="news-card">
-                    <div class="news-image">
-                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
-                        <span class="news-category-badge sport">Спорт</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Национальная сборная одержала победу на международном турнире</h3>
-                        <p class="news-excerpt">Спортсмены показали отличную игру и принесли честь стране...</p>
-                        <div class="news-meta">
-                            <span class="news-date"><i class="fas fa-calendar"></i> 4 мая 2026</span>
-                            <span class="news-time"><i class="fas fa-clock"></i> 18:45</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- News Card 4 -->
-                <article class="news-card">
-                    <div class="news-image">
-                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
-                        <span class="news-category-badge tech">Технологии</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Революционная разработка в области искусственного интеллекта</h3>
-                        <p class="news-excerpt">Ученые представили новый прорыв в развитии технологий ИИ...</p>
-                        <div class="news-meta">
-                            <span class="news-date"><i class="fas fa-calendar"></i> 4 мая 2026</span>
-                            <span class="news-time"><i class="fas fa-clock"></i> 14:20</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- News Card 5 -->
-                <article class="news-card">
-                    <div class="news-image">
-                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
-                        <span class="news-category-badge culture">Культура</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Новая выставка в национальном музее привлекает посетителей</h3>
-                        <p class="news-excerpt">Уникальная коллекция артефактов привезена из разных стран...</p>
-                        <div class="news-meta">
-                            <span class="news-date"><i class="fas fa-calendar"></i> 3 мая 2026</span>
-                            <span class="news-time"><i class="fas fa-clock"></i> 12:00</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- News Card 6 -->
-                <article class="news-card">
-                    <div class="news-image">
-                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
-                        <span class="news-category-badge health">Здоровье</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Медицинские исследования открывают новые возможности лечения</h3>
-                        <p class="news-excerpt">Ученые разработали новый метод борьбы со сложными заболеваниями...</p>
-                        <div class="news-meta">
-                            <span class="news-date"><i class="fas fa-calendar"></i> 3 мая 2026</span>
-                            <span class="news-time"><i class="fas fa-clock"></i> 11:30</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- News Card 7 -->
-                <article class="news-card">
-                    <div class="news-image">
-                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
-                        <span class="news-category-badge education">Образование</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Образовательная система переходит на новый формат обучения</h3>
-                        <p class="news-excerpt">Министерство образования внедряет инновационные методы в школах...</p>
-                        <div class="news-meta">
-                            <span class="news-date"><i class="fas fa-calendar"></i> 2 мая 2026</span>
-                            <span class="news-time"><i class="fas fa-clock"></i> 09:00</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- News Card 8 -->
-                <article class="news-card">
-                    <div class="news-image">
-                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
-                        <span class="news-category-badge ecology">Экология</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Новые инициативы по защите окружающей среды показывают результаты</h3>
-                        <p class="news-excerpt">Экологический проект вызвал положительное изменение в регионе...</p>
-                        <div class="news-meta">
-                            <span class="news-date"><i class="fas fa-calendar"></i> 2 мая 2026</span>
-                            <span class="news-time"><i class="fas fa-clock"></i> 08:45</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- News Card 9 -->
-                <article class="news-card">
-                    <div class="news-image">
-                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
-                        <span class="news-category-badge uzb">Узбекистан</span>
-                    </div>
-                    <div class="news-content">
-                        <h3 class="news-title">Развитие инфраструктуры ускоряет развитие экономики страны</h3>
-                        <p class="news-excerpt">Новые проекты в области строительства и промышленности дают результаты...</p>
-                        <div class="news-meta">
-                            <span class="news-date"><i class="fas fa-calendar"></i> 1 мая 2026</span>
-                            <span class="news-time"><i class="fas fa-clock"></i> 07:30</span>
-                        </div>
-                    </div>
-                </article>
+                    </article>
+                    {% endif %}
+                {% endfor %}
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Breaking News Bar -->
+        <section class="breaking-news">
+            <div class="breaking-label">
+                <i class="fas fa-exclamation-circle"></i> СРОЧНОЕ
+            </div>
+            <div class="breaking-content">
+                <span class="breaking-text">
+                    {% for item in news|slice:":3" %}
+                        <span>• {{ item.title }}</span>
+                    {% endfor %}
+                </span>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <h2 class="section-title">Основные категории</h2>
+            <div class="categories-grid">
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Мир</h3>
+                    <p>Международные новости</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Экономика</h3>
+                    <p>Финансовые новости</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Технологии</h3>
+                    <p>Инновации и IT</p>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-football-ball"></i>
+                    </div>
+                    <h3>Спорт</h3>
+                    <p>Спортивные новости</p>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 NewsSite. Все права защищены. | Последние новости со всего мира</p>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>О сайте</h4>
+                <p>NewsTalk - независимый новостной портал с актуальной информацией по всем сферам жизни.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Категории</h4>
+                <ul>
+                    <li><a href="#">Мир</a></li>
+                    <li><a href="#">Экономика</a></li>
+                    <li><a href="#">Технологии</a></li>
+                    <li><a href="#">Спорт</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Следите за нами</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Контакты</h4>
+                <p>Email: info@newstalk.com</p>
+                <p>+998 90 123-45-67</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NewsTalk. Все права защищены.</p>
         </div>
     </footer>
-
-    <script>
-
-    </script>
 </body>
 </html>
