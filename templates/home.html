@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Последние новости</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <i class="fas fa-newspaper"></i> NewsSite
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-home"></i> Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-globe"></i> Мир</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-flag"></i> Узбекистан</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Экономика</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-football-ball"></i> Спорт</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-theater-masks"></i> Культура</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-microchip"></i> Технологии</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-heartbeat"></i> Здоровье</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-graduation-cap"></i> Образование</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><i class="fas fa-leaf"></i> Экология</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Featured Article -->
+    <section class="featured-section">
+        <div class="featured-article">
+            <img src="{% static 'images/images.jfif' %}" alt="Главная новость" class="featured-image">
+            <div class="featured-content">
+                <span class="featured-category">Главная новость</span>
+                <h1 class="featured-title">Крупные события дня освещены в нашей ленте новостей</h1>
+                <p class="featured-text">Узнайте о самых важных событиях, происходящих в мире прямо сейчас.</p>
+                <a href="#" class="read-more-btn">Читать полностью</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Grid -->
+    <section class="news-section">
+        <div class="container">
+            <h2 class="section-title">Последние новости</h2>
+            <div class="news-grid">
+                <!-- News Card 1 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
+                        <span class="news-category-badge">Мир</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">Важные события на мировой арене</h3>
+                        <p class="news-excerpt">Новые договоры и соглашения между странами влияют на мировую политику...</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="fas fa-calendar"></i> 5 мая 2026</span>
+                            <span class="news-time"><i class="fas fa-clock"></i> 10:30</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News Card 2 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
+                        <span class="news-category-badge economy">Экономика</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">Экономический рост показывает положительную динамику</h3>
+                        <p class="news-excerpt">Последние данные свидетельствуют об улучшении экономических показателей...</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="fas fa-calendar"></i> 5 мая 2026</span>
+                            <span class="news-time"><i class="fas fa-clock"></i> 09:15</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News Card 3 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
+                        <span class="news-category-badge sport">Спорт</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">Национальная сборная одержала победу на международном турнире</h3>
+                        <p class="news-excerpt">Спортсмены показали отличную игру и принесли честь стране...</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="fas fa-calendar"></i> 4 мая 2026</span>
+                            <span class="news-time"><i class="fas fa-clock"></i> 18:45</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News Card 4 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
+                        <span class="news-category-badge tech">Технологии</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">Революционная разработка в области искусственного интеллекта</h3>
+                        <p class="news-excerpt">Ученые представили новый прорыв в развитии технологий ИИ...</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="fas fa-calendar"></i> 4 мая 2026</span>
+                            <span class="news-time"><i class="fas fa-clock"></i> 14:20</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News Card 5 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
+                        <span class="news-category-badge culture">Культура</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">Новая выставка в национальном музее привлекает посетителей</h3>
+                        <p class="news-excerpt">Уникальная коллекция артефактов привезена из разных стран...</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="fas fa-calendar"></i> 3 мая 2026</span>
+                            <span class="news-time"><i class="fas fa-clock"></i> 12:00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News Card 6 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
+                        <span class="news-category-badge health">Здоровье</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">Медицинские исследования открывают новые возможности лечения</h3>
+                        <p class="news-excerpt">Ученые разработали новый метод борьбы со сложными заболеваниями...</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="fas fa-calendar"></i> 3 мая 2026</span>
+                            <span class="news-time"><i class="fas fa-clock"></i> 11:30</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News Card 7 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
+                        <span class="news-category-badge education">Образование</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">Образовательная система переходит на новый формат обучения</h3>
+                        <p class="news-excerpt">Министерство образования внедряет инновационные методы в школах...</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="fas fa-calendar"></i> 2 мая 2026</span>
+                            <span class="news-time"><i class="fas fa-clock"></i> 09:00</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News Card 8 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
+                        <span class="news-category-badge ecology">Экология</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">Новые инициативы по защите окружающей среды показывают результаты</h3>
+                        <p class="news-excerpt">Экологический проект вызвал положительное изменение в регионе...</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="fas fa-calendar"></i> 2 мая 2026</span>
+                            <span class="news-time"><i class="fas fa-clock"></i> 08:45</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- News Card 9 -->
+                <article class="news-card">
+                    <div class="news-image">
+                        <img src="{% static 'images/images.jfif' %}" alt="Новость">
+                        <span class="news-category-badge uzb">Узбекистан</span>
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">Развитие инфраструктуры ускоряет развитие экономики страны</h3>
+                        <p class="news-excerpt">Новые проекты в области строительства и промышленности дают результаты...</p>
+                        <div class="news-meta">
+                            <span class="news-date"><i class="fas fa-calendar"></i> 1 мая 2026</span>
+                            <span class="news-time"><i class="fas fa-clock"></i> 07:30</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 NewsSite. Все права защищены. | Последние новости со всего мира</p>
+        </div>
+    </footer>
+
+    <script>
+
+    </script>
+</body>
+</html>
