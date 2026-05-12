@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ news.title }} - NewsTalk</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <i class="fas fa-newspaper"></i>
+                <span>NewsTalk</span>
+            </div>
+            <div class="nav-search">
+                <input type="text" placeholder="Поиск новостей...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Главная</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-globe"></i> Мир</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-flag"></i> Узбекистан</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Экономика</a></li>
+                <li><a href="#" class="nav-link"><i class="fas fa-microchip"></i> Технологии</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="/">Главная</a>
+            <span>/</span>
+            <span class="current">{{ news.title }}</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="article-container">
+            <!-- Main Article -->
+            <article class="article-detail">
+                <h1 class="article-title">{{ news.title }}</h1>
+
+                <div class="article-header">
+                    <div class="author-info">
+                        <div>
+                            <p class="author-name-detail"><i class="fas fa-user"></i> {{ news.author.name }} {{ news.author.surname }}</p>
+                            <p class="article-date"><i class="fas fa-calendar"></i> {{ news.created_at|date:"d E Y, H:i" }}</p>
+                        </div>
+                    </div>
+                    <div class="share-buttons">
+                        <a href="#" class="share-btn" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="share-btn" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="share-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <button class="share-btn copy-link" title="Скопировать ссылку"><i class="fas fa-link"></i></button>
+                    </div>
+                </div>
+
+                <div class="article-category">
+                    <span class="badge">{{ news.category.name }}</span>
+                </div>
+
+                <div class="article-image">
+                    {% if news.image %}
+                    <img src="{{ news.image.url }}" alt="{{ news.title }}">
+                    {% else %}
+                    <img src="{% static 'media/images.jfif' %}" alt="{{ news.title }}">
+                    {% endif %}
+                </div>
+
+                <div class="article-content">
+                    <p>{{ news.content }}</p>
+                </div>
+
+                {% if news.tags.all %}
+                <div class="article-tags">
+                    <h4><i class="fas fa-tags"></i> Теги:</h4>
+                    <div class="tags-list">
+                        {% for tag in news.tags.all %}
+                        <a href="#" class="tag">#{{ tag.tag }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <hr>
+
+                <div class="author-section">
+                    <div class="author-box">
+                        <div class="author-details">
+                            <h3><i class="fas fa-user-circle"></i> {{ news.author.name }} {{ news.author.surname }}</h3>
+                            <p>{{ news.author.bio }}</p>
+                            <button class="follow-btn"><i class="fas fa-bell"></i> Следить за автором</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <aside class="sidebar">
+                <div class="sidebar-widget newsletter-widget">
+                    <h3 class="widget-title"><i class="fas fa-envelope"></i> Подписка</h3>
+                    <p>Получайте свежие новости</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Ваш email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i> Подписаться</button>
+                    </form>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3 class="widget-title"><i class="fas fa-fire"></i> Популярное</h3>
+                    <div class="popular-items">
+                        <div class="popular-item">
+                            <span class="badge-number">1</span>
+                            <div>
+                                <h4>Самые обсуждаемые</h4>
+                                <p class="popular-category">{{ news.category.name }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3 class="widget-title"><i class="fas fa-folder"></i> Категория</h3>
+                    <div class="category-info">
+                        <p>{{ news.category.name }}</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>О сайте</h4>
+                <p>NewsTalk - новостной портал</p>
+            </div>
+            <div class="footer-column">
+                <h4>Категории</h4>
+                <ul>
+                    <li><a href="#">Все новости</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Следите за нами</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NewsTalk. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.copy-link')?.addEventListener('click', function() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Ссылка скопирована!');
+        });
+    </script>
+</body>
+</html>

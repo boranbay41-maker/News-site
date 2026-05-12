@@ -7,6 +7,11 @@ def home(request):
     return render(request, 'home.html', {'news': items})
 
 
+def product_detail(request, pk):
+    news = get_object_or_404(News, pk=pk)
+    return render(request, 'product_detail.html', {'news': news})
+
+
 
 def product_detail(request, pk):
     news = get_object_or_404(News, pk=pk)
