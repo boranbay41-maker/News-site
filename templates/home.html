@@ -21,11 +21,10 @@
                 <button><i class="fas fa-search"></i></button>
             </div>
             <ul class="nav-menu">
-                <li><a href="#" class="nav-link active"><i class="fas fa-home"></i> Главная</a></li>
-                <li><a href="#" class="nav-link"><i class="fas fa-globe"></i> Мир</a></li>
-                <li><a href="#" class="nav-link"><i class="fas fa-flag"></i> Узбекистан</a></li>
-                <li><a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Экономика</a></li>
-                <li><a href="#" class="nav-link"><i class="fas fa-microchip"></i> Технологии</a></li>
+                <li><a href="/" class="nav-link {% if not selected_category %}active{% endif %}"><i class="fas fa-home"></i> Главная</a></li>
+                {% for category in categories %}
+                <li><a href="{% url 'category_news' category.id %}" class="nav-link {% if selected_category.id == category.id %}active{% endif %}">{{ category.name }}</a></li>
+                {% endfor %}
             </ul>
         </div>
     </nav>
@@ -74,9 +73,9 @@
         <section class="news-section">
             <div class="section-header">
                 <h2 class="section-title">
-                    <i class="fas fa-bolt"></i> Последние новости
+                    <i class="fas fa-bolt"></i> {% if selected_category %}Новости: {{ selected_category.name }}{% else %}Последние новости{% endif %}
                 </h2>
-                <div class="view-all">Все новости</div>
+                {% if selected_category %}<a href="/" class="view-all">Все новости</a>{% endif %}
             </div>
 
             <div class="news-grid">

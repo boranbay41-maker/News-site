@@ -1,0 +1,307 @@
+/* ===== ADMIN PANEL STYLES ===== */
+
+:root {
+    --admin-dark: #1e1e2e;
+    --admin-darker: #16213e;
+    --admin-light: #2a2a3e;
+    --admin-accent: #e94560;
+    --admin-accent-light: #ff6b7a;
+    --admin-text: #ffffff;
+    --admin-text-muted: #aaa;
+    --admin-border: #444;
+    --admin-success: #4caf50;
+    --admin-warning: #ff9800;
+    --admin-error: #f44336;
+}
+
+/* Override Django admin default styles */
+html, body {
+    background: var(--admin-dark);
+    color: var(--admin-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header/Branding */
+#header {
+    background: linear-gradient(135deg, var(--admin-darker) 0%, var(--admin-dark) 100%);
+    border-bottom: 2px solid var(--admin-accent);
+    padding: 20px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+#site-name {
+    font-size: 24px;
+    margin: 0;
+    padding: 0 15px;
+}
+
+#site-name a {
+    color: var(--admin-text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s ease;
+}
+
+#site-name a:hover {
+    color: var(--admin-accent-light);
+}
+
+/* Navigation Bar */
+#nav-global {
+    display: none;
+}
+
+.breadcrumbs {
+    background: var(--admin-light);
+    padding: 12px 15px;
+    margin: 20px;
+    border-radius: 6px;
+    border-left: 3px solid var(--admin-accent);
+}
+
+.breadcrumbs a {
+    color: var(--admin-accent);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumbs a:hover {
+    color: var(--admin-accent-light);
+}
+
+/* Forms */
+.login-form {
+    max-width: 400px;
+    margin: 80px auto;
+    background: var(--admin-light);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--admin-border);
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--admin-text);
+    font-size: 22px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--admin-text-muted);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    background: var(--admin-dark);
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    color: var(--admin-text);
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--admin-accent);
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, 0.1);
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Buttons */
+button,
+.button,
+input[type="submit"],
+input[type="button"] {
+    padding: 12px 24px;
+    background: var(--admin-accent);
+    color: var(--admin-text);
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button:hover,
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background: var(--admin-accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);
+}
+
+button:active,
+input[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Error messages */
+.errornote,
+.error {
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid var(--admin-error);
+    color: #ff99cc;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login-error {
+    color: var(--admin-error);
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgba(244, 67, 54, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid var(--admin-error);
+}
+
+/* Content area */
+#content {
+    background: var(--admin-dark);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px;
+}
+
+.model-list {
+    background: var(--admin-light);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.model-list table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--admin-light);
+}
+
+.model-list table thead {
+    background: var(--admin-darker);
+    border-bottom: 2px solid var(--admin-accent);
+}
+
+.model-list table th {
+    padding: 15px;
+    text-align: left;
+    color: var(--admin-text);
+    font-weight: 600;
+    border-right: 1px solid var(--admin-border);
+}
+
+.model-list table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--admin-border);
+}
+
+.model-list table tbody tr:hover {
+    background: var(--admin-dark);
+}
+
+.model-list a {
+    color: var(--admin-accent);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.model-list a:hover {
+    color: var(--admin-accent-light);
+}
+
+/* Dashboard */
+.dashboard-section {
+    background: var(--admin-light);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    border-left: 4px solid var(--admin-accent);
+}
+
+.dashboard-section h2 {
+    color: var(--admin-text);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Fieldset */
+fieldset {
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    background: var(--admin-dark);
+}
+
+fieldset legend {
+    color: var(--admin-text);
+    padding: 0 10px;
+    margin-left: -10px;
+    font-weight: 600;
+}
+
+/* Success message */
+.success {
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid var(--admin-success);
+    color: #90ee90;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+/* Footer */
+#footer {
+    background: var(--admin-darker);
+    border-top: 1px solid var(--admin-border);
+    padding: 20px;
+    text-align: center;
+    color: var(--admin-text-muted);
+    margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .login-form {
+        margin: 40px auto;
+        padding: 20px;
+    }
+    
+    .model-list {
+        font-size: 13px;
+    }
+    
+    .model-list table th,
+    .model-list table td {
+        padding: 8px;
+    }
+}
