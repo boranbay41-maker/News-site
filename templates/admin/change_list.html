@@ -1,0 +1,71 @@
+{% extends "admin/base.html" %}
+{% load i18n admin_urls static admin_list_filter %}
+
+{% block content_title %}
+<div class="list-header">
+    <h1>{{ opts.verbose_name_plural|capfirst }}</h1>
+</div>
+{% endblock %}
+
+{% block search %}
+{% if has_search_form %}
+<div class="search">
+    <form id="searchbar" method="get">
+        <input type="text" size="40" name="q" value="{{ query }}" id="searchbar" placeholder="Поиск...">
+        <input type="submit" value="Поиск">
+    </form>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="list-container">
+    {% block date_hierarchy %}{% endblock %}
+    
+    {% block filters %}
+    {% if has_filters %}
+    <div class="filters-wrapper">
+        <div id="changelist-filter">
+            <h2>{% trans 'Filter' %}</h2>
+            {% admin_list_filter cl %}
+        </div>
+    </div>
+    {% endif %}
+    {% endblock %}
+
+    <div class="results">
+        {% block result_list %}
+        {% if result_list %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        {% for header in result_headers %}
+                        <th{% if header.sortable %} class="sortable"{% endif %}>
+                            {% if header.sortable %}<a href="{{ header.url }}">{% endif %}
+                                {{ header.text|capfirst }}
+                            {% if header.sortable %}</a>{% endif %}
+                        </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in result_list %}
+                    <tr class="{% cycle 'row1' 'row2' %}">
+                        {% for item in row %}
+                            <td>{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>{% trans 'No results found.' %}</p>
+        {% endif %}
+        {% endblock %}
+    </div>
+
+    {% block pagination %}{% endblock %}
+</div>
+{% endblock %}

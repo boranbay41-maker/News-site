@@ -15,6 +15,14 @@ class NewsAdmin(admin.ModelAdmin):
     filter_horizontal = ('tags',)   
     date_hierarchy = 'created_at'
     
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(author=request.user)
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+    
 fieldsets = (
     ('Основное', {
         'fields': ('title', 'content', 'image')
@@ -27,4 +35,5 @@ fieldsets = (
         'classes': ('collapse',),
     }),
 )
+
 

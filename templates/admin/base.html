@@ -1,0 +1,84 @@
+{% load i18n static %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:'en-us' }}" dir="{{ text_direction }}">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    {% block extrastyle %}{% endblock %}
+    {% block extrahead %}{% endblock %}
+    {% block responsive %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% endblock %}
+</head>
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{{ utc_offset_ms }}">
+
+<!-- Header -->
+<div id="header">
+    <div class="header-content">
+        {% block branding %}{% endblock %}
+        {% block usertools %}
+        <div class="user-tools">
+            {% if user.is_active and user.is_staff %}
+                {% trans 'Welcome,' %}
+                <strong>{{ user.username }}</strong> |
+                <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+            {% else %}
+                {% trans 'Welcome' %}
+            {% endif %}
+        </div>
+        {% endblock %}
+    </div>
+</div>
+
+<!-- Navigation -->
+{% block nav-global %}{% endblock %}
+
+<!-- Messages -->
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+        <a href="#" class="close">&times;</a>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Content -->
+<div id="container">
+    {% block pretitle %}{% endblock %}
+    {% block content_title %}{% endblock %}
+    {% block breadcrumbs %}{% endblock %}
+    
+    <div id="content">
+        {% block messages %}{% endblock %}
+        {% block content %}
+        <h1>{% trans "Site administration" %}</h1>
+        <p>{% trans "Welcome to the administration panel." %}</p>
+        {% endblock %}
+    </div>
+</div>
+
+<!-- Footer -->
+<div id="footer">
+    <p>© 2024 NewsTalk Admin Panel. Built with Django.</p>
+</div>
+
+<!-- Scripts -->
+{% block extrajs %}{% endblock %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Close button for messages
+    document.querySelectorAll('.message .close').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.parentElement.style.display = 'none';
+        });
+    });
+});
+</script>
+</body>
+</html>
