@@ -114,6 +114,21 @@
                     {% endif %}
                 {% endfor %}
             </div>
+
+            <!-- Pagination -->
+            <div class="pagination" style="text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #FF6B6B; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">« Первая</a>
+                    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #FF6B6B; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">‹ Предыдущая</a>
+                {% endif %}
+
+                <span style="padding: 10px 15px; background: #333; color: white; border-radius: 5px; font-weight: bold;">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #FF6B6B; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Следующая ›</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #FF6B6B; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Последняя »</a>
+                {% endif %}
+            </div>
         </section>
 
         <!-- Breaking News Bar -->

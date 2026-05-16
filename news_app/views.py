@@ -16,14 +16,24 @@ def home(request):
     else:
         items = News.objects.all().order_by('-created_at')
     categories = Category.objects.all()
-    return render(request, 'home.html', {'news': items, 'categories': categories})
+    
+    paginator = Paginator(items, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'home.html', {'news': page_obj, 'categories': categories, 'page_obj': page_obj})
 
 
 def category_news(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
-    items = News.objects.filter(category=category)
+    items = News.objects.filter(category=category).order_by('-created_at')
     categories = Category.objects.all()
-    return render(request, 'home.html', {'news': items, 'categories': categories, 'selected_category': category})
+    
+    paginator = Paginator(items, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'home.html', {'news': page_obj, 'categories': categories, 'selected_category': category, 'page_obj': page_obj})
 
 
 def product_detail(request, pk):
