@@ -1,6 +1,5 @@
 {% extends "admin/base.html" %}
-{% load i18n admin_urls static admin_list_filter %}
-
+{% load i18n admin_urls static admin_list %}
 {% block content_title %}
 <div class="list-header">
     <h1>{{ opts.verbose_name_plural|capfirst }}</h1>
@@ -32,7 +31,7 @@
     <div class="filters-wrapper">
         <div id="changelist-filter">
             <h2>{% trans 'Filter' %}</h2>
-            {% admin_list_filter cl %}
+            {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
         </div>
     </div>
     {% endif %}

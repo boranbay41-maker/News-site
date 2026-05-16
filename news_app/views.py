@@ -1,9 +1,20 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from .models import News, Category
+from django.db.models import Q
 
 def home(request):
-    items = News.objects.all().order_by('-created_at')
+    poisk = request.GET.get('q')
+    if poisk:
+        items = News.objects.filter(
+            Q(title__icontains=poisk) | 
+            Q(content__icontains=poisk) |
+            Q(category__name__icontains=poisk) |
+            Q(tags__tag__icontains=poisk) |
+            Q(author__name__icontains=poisk)
+        ).distinct().order_by('-created_at')
+    else:
+        items = News.objects.all().order_by('-created_at')
     categories = Category.objects.all()
     return render(request, 'home.html', {'news': items, 'categories': categories})
 

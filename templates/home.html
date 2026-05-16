@@ -17,8 +17,10 @@
                 <span>NewsTalk</span>
             </div>
             <div class="nav-search">
-                <input type="text" placeholder="Поиск новостей...">
-                <button><i class="fas fa-search"></i></button>
+                <form method="get" action="{% url 'home' %}" style="display: flex; width: 100%;">
+                    <input type="text" name="q" placeholder="Поиск новостей..." value="{{ request.GET.q }}">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
             </div>
             <ul class="nav-menu">
                 <li><a href="/" class="nav-link {% if not selected_category %}active{% endif %}"><i class="fas fa-home"></i> Главная</a></li>
