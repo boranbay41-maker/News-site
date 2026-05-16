@@ -4,6 +4,11 @@
 {% block content_title %}
 <div class="list-header">
     <h1>{{ opts.verbose_name_plural|capfirst }}</h1>
+    {% if has_add_permission %}
+    <a href="{% url opts|admin_urlname:'add' %}" class="btn btn-add">
+        + {% blocktrans with name=opts.verbose_name %}Добавить {{ name }}{% endblocktrans %}
+    </a>
+    {% endif %}
 </div>
 {% endblock %}
 
@@ -53,7 +58,7 @@
                     {% for row in result_list %}
                     <tr class="{% cycle 'row1' 'row2' %}">
                         {% for item in row %}
-                            <td>{{ item }}</td>
+                            <td>{% autoescape off %}{{ item }}{% endautoescape %}</td>
                         {% endfor %}
                     </tr>
                     {% endfor %}

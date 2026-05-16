@@ -415,6 +415,10 @@ input[type="submit"]:active {
 /* List header */
 .list-header {
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
 }
 
 .list-header h1 {
@@ -423,6 +427,13 @@ input[type="submit"]:active {
     margin: 0;
     padding-bottom: 15px;
     border-bottom: 2px solid var(--admin-accent);
+    flex: 1;
+}
+
+.list-header .btn {
+    flex: none;
+    white-space: nowrap;
+    align-self: flex-end;
 }
 
 /* List container */
