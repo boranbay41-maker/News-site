@@ -27,6 +27,13 @@
                 {% for category in categories %}
                 <li><a href="{% url 'category_news' category.id %}" class="nav-link {% if selected_category.id == category.id %}active{% endif %}">{{ category.name }}</a></li>
                 {% endfor %}
+                
+                {% if user.is_authenticated %}
+                <li style="margin-left: auto;"><a href="{% url 'logout' %}" class="nav-link" style="color: #FF6B6B;"><i class="fas fa-sign-out-alt"></i> Выход ({{ user.username }})</a></li>
+                {% else %}
+                <li style="margin-left: auto;"><a href="{% url 'login' %}" class="nav-link" style="color: #FF6B6B;"><i class="fas fa-sign-in-alt"></i> Вход</a></li>
+                <li><a href="{% url 'register' %}" class="nav-link" style="color: #FF6B6B;"><i class="fas fa-user-plus"></i> Регистрация</a></li>
+                {% endif %}
             </ul>
         </div>
     </nav>
