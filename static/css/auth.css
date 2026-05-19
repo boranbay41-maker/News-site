@@ -2,13 +2,13 @@
     max-width: 400px;
     margin: 100px auto;
     padding: 40px;
-    background: #1a1a1a;
+    background: #ffffff;
     border-radius: 10px;
-    border: 2px solid #FF6B6B;
+    border: 2px solid #333333;
 }
 
 .auth-container h2 {
-    color: #FF6B6B;
+    color: #333333;
     text-align: center;
     margin-bottom: 30px;
 }
@@ -20,16 +20,16 @@
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    color: #fff;
+    color: #333333;
     font-weight: bold;
 }
 
 .form-group input {
     width: 100%;
     padding: 12px;
-    background: #2a2a2a;
-    border: 1px solid #FF6B6B;
-    color: #fff;
+    background: #ffffff;
+    border: 2px solid #cccccc;
+    color: #333333;
     border-radius: 5px;
     font-size: 14px;
     box-sizing: border-box;
@@ -37,12 +37,12 @@
 
 .form-group input:focus {
     outline: none;
-    border-color: #ff8787;
-    background: #333;
+    border-color: #333333;
+    background: #ffffff;
 }
 
 .error {
-    background: #d32f2f;
+    background: #333333;
     color: white;
     padding: 15px;
     border-radius: 5px;
@@ -53,7 +53,7 @@
 .btn-submit {
     width: 100%;
     padding: 12px;
-    background: #FF6B6B;
+    background: linear-gradient(135deg, #333333 0%, #555555 100%);
     color: white;
     border: none;
     border-radius: 5px;
@@ -65,17 +65,17 @@
 }
 
 .btn-submit:hover {
-    background: #ff8787;
+    background: linear-gradient(135deg, #555555 0%, #333333 100%);
 }
 
 .auth-link {
     text-align: center;
     margin-top: 20px;
-    color: #fff;
+    color: #333333;
 }
 
 .auth-link a {
-    color: #FF6B6B;
+    color: #555555;
     text-decoration: none;
     font-weight: bold;
 }

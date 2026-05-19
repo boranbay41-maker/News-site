@@ -1,17 +1,17 @@
 /* ===== ADMIN PANEL STYLES ===== */
 
 :root {
-    --admin-dark: #1e1e2e;
-    --admin-darker: #16213e;
-    --admin-light: #2a2a3e;
-    --admin-accent: #e94560;
-    --admin-accent-light: #ff6b7a;
-    --admin-text: #ffffff;
-    --admin-text-muted: #aaa;
-    --admin-border: #444;
-    --admin-success: #4caf50;
-    --admin-warning: #ff9800;
-    --admin-error: #f44336;
+    --admin-dark: #ffffff;
+    --admin-darker: #f5f5f5;
+    --admin-light: #f0f0f0;
+    --admin-accent: #333333;
+    --admin-accent-light: #555555;
+    --admin-text: #1a1a1a;
+    --admin-text-muted: #666666;
+    --admin-border: #cccccc;
+    --admin-success: #333333;
+    --admin-warning: #555555;
+    --admin-error: #333333;
 }
 
 /* Reset */
@@ -59,7 +59,7 @@ body {
     background: linear-gradient(135deg, var(--admin-darker) 0%, var(--admin-dark) 100%);
     border-bottom: 3px solid var(--admin-accent);
     padding: 20px 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     position: sticky;
     top: 0;
     z-index: 1000;

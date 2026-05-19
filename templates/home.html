@@ -34,10 +34,10 @@
                 {% endfor %}
                 
                 {% if user.is_authenticated %}
-                <li style="margin-left: auto;"><a href="{% url 'logout' %}" class="nav-link" style="color: #FF6B6B;"><i class="fas fa-sign-out-alt"></i> Выход ({{ user.username }})</a></li>
+                <li style="margin-left: auto;"><a href="{% url 'logout' %}" class="nav-link" style="color: #999999;"><i class="fas fa-sign-out-alt"></i> Выход ({{ user.username }})</a></li>
                 {% else %}
-                <li style="margin-left: auto;"><a href="{% url 'login' %}" class="nav-link" style="color: #FF6B6B;"><i class="fas fa-sign-in-alt"></i> Вход</a></li>
-                <li><a href="{% url 'register' %}" class="nav-link" style="color: #FF6B6B;"><i class="fas fa-user-plus"></i> Регистрация</a></li>
+                <li style="margin-left: auto;"><a href="{% url 'login' %}" class="nav-link" style="color: #999999;"><i class="fas fa-sign-in-alt"></i> Вход</a></li>
+                <li><a href="{% url 'register' %}" class="nav-link" style="color: #999999;"><i class="fas fa-user-plus"></i> Регистрация</a></li>
                 {% endif %}
             </ul>
         </div>
@@ -154,15 +154,15 @@
             <!-- Pagination -->
             <div class="pagination" style="text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
                 {% if page_obj.has_previous %}
-                    <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #FF6B6B; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">« Первая</a>
-                    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #FF6B6B; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">‹ Предыдущая</a>
+                    <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #333333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">« Первая</a>
+                    <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #333333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">‹ Предыдущая</a>
                 {% endif %}
 
-                <span style="padding: 10px 15px; background: #333; color: white; border-radius: 5px; font-weight: bold;">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+                <span style="padding: 10px 15px; background: #555555; color: white; border-radius: 5px; font-weight: bold;">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
 
                 {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #FF6B6B; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Следующая ›</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #FF6B6B; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Последняя »</a>
+                    <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #333333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Следующая ›</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #333333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Последняя »</a>
                 {% endif %}
             </div>
         </section>
