@@ -20,7 +20,12 @@
                 <input type="text" placeholder="Поиск новостей...">
                 <button><i class="fas fa-search"></i></button>
             </div>
-            <ul class="nav-menu">
+            <button class="hamburger-btn" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="/" class="nav-link active"><i class="fas fa-home"></i> Главная</a></li>
                 <li><a href="#" class="nav-link"><i class="fas fa-globe"></i> Мир</a></li>
                 <li><a href="#" class="nav-link"><i class="fas fa-flag"></i> Узбекистан</a></li>
@@ -29,6 +34,30 @@
             </ul>
         </div>
     </nav>
+
+    <script>
+        // Hamburger menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (hamburger) {
+                hamburger.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    hamburger.classList.toggle('active');
+                });
+                
+                // Close menu when a link is clicked
+                const navLinks = navMenu.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        navMenu.classList.remove('active');
+                        hamburger.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
 
     {% block content %}{% endblock %}
 
