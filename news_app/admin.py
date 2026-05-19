@@ -12,15 +12,3 @@ class NewsAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     filter_horizontal = ('tags',)
     date_hierarchy = 'created_at'
-    fieldsets = (
-        ('Основное', {
-            'fields': ('title', 'content', 'image', 'is_published')
-        }),
-        ('Категоризация', {
-            'fields': ('author', 'category', 'tags')
-        }),
-        ('Дата', {
-            'fields': ('created_at',),
-            'classes': ('collapse',),
-        }),
-    )
