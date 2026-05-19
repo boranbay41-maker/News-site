@@ -1,8 +1,6 @@
-
 from django.contrib import admin
 from .models import News, Category, Author, Tags
 
-# admin.site.register(News)
 admin.site.register(Category)
 admin.site.register(Author)
 admin.site.register(Tags)
@@ -14,7 +12,7 @@ class NewsAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     filter_horizontal = ('tags',)
     date_hierarchy = 'created_at'
-    fieldsets = (                          
+    fieldsets = (
         ('Основное', {
             'fields': ('title', 'content', 'image', 'is_published')
         }),
@@ -26,10 +24,3 @@ class NewsAdmin(admin.ModelAdmin):
             'classes': ('collapse',),
         }),
     )
-
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(author=request.user)
-
