@@ -33,7 +33,7 @@ class News(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tags)
     created_at = models.DateTimeField(default=timezone.now)
-    is_published = models.BooleanField(default=False, verbose_name='Published')
+    is_published = models.BooleanField(default=True, verbose_name='Published')
 
     
     def __str__(self):

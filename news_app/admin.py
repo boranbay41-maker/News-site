@@ -9,31 +9,27 @@ admin.site.register(Tags)
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'author', 'created_at')
-    list_filter = ('category', 'author','tags')
+    list_display = ('title', 'category', 'author', 'created_at', 'is_published')
+    list_filter = ('category', 'author', 'tags', 'is_published')
     search_fields = ('title', 'content')
-    filter_horizontal = ('tags',)   
+    filter_horizontal = ('tags',)
     date_hierarchy = 'created_at'
-    
+    fieldsets = (                          
+        ('Основное', {
+            'fields': ('title', 'content', 'image', 'is_published')
+        }),
+        ('Категоризация', {
+            'fields': ('author', 'category', 'tags')
+        }),
+        ('Дата', {
+            'fields': ('created_at',),
+            'classes': ('collapse',),
+        }),
+    )
+
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
         return qs.filter(author=request.user)
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
-    
-fieldsets = (
-    ('Основное', {
-        'fields': ('title', 'content', 'image')
-    }),
-    ('Категоризация', {
-        'fields': ('author', 'category', 'tags')
-    }),
-    ('Дата', {
-        'fields': ('created_at',),
-        'classes': ('collapse',),
-    }),
-)
-
 
