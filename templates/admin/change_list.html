@@ -39,34 +39,7 @@
 
     <div class="results">
         {% block result_list %}
-        {% if result_list %}
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        {% for header in result_headers %}
-                        <th{% if header.sortable %} class="sortable"{% endif %}>
-                            {% if header.sortable %}<a href="{{ header.url }}">{% endif %}
-                                {{ header.text|capfirst }}
-                            {% if header.sortable %}</a>{% endif %}
-                        </th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in result_list %}
-                    <tr class="{% cycle 'row1' 'row2' %}">
-                        {% for item in row %}
-                            <td>{% autoescape off %}{{ item }}{% endautoescape %}</td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        {% else %}
-        <p>{% trans 'No results found.' %}</p>
-        {% endif %}
+        {% result_list cl %}
         {% endblock %}
     </div>
 
