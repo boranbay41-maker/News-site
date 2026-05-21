@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 def home(request):
     poisk = request.GET.get('q')
@@ -25,6 +26,39 @@ def home(request):
     page_obj = paginator.get_page(page_number)
     
     return render(request, 'home.html', {'news': page_obj, 'categories': categories, 'page_obj': page_obj})
+
+def search_autocomplate(request):
+    q = request.GET.get('q', '').strip()
+    if len(q) < 2:
+        return JsonResponse({'results': []})
+
+    results = (
+        News.objects
+        .filter(
+            Q(title__icontains=q) |
+            Q(category__name__icontains=q) |
+            Q(tags__tag__icontains=q) |
+            Q(author__name__icontains=q) |
+            Q(content__icontains=q)
+        )
+        .filter(is_published=True)
+        .distinct()
+        .order_by('-created_at')
+        .values('id', 'title', 'category__name')[:8]
+    )
+
+    data = [
+        {
+            'id': n['id'],
+            'title': n['title'],
+            'category': n['category__name'] or '',
+            'url': f"/product/{n['id']}/"
+        }
+        for n in results
+    ]
+
+    return JsonResponse({'results': data, 'total': len(data)})
+
 
 
 def category_news(request, category_id):
