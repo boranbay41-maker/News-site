@@ -6,16 +6,16 @@
 }
 
 :root {
-    --primary-color: #333333;
-    --secondary-color: #1a1a1a;
-    --accent-color: #555555;
+    --primary-color: #1a365d;
+    --secondary-color: #0f172a;
+    --accent-color: #991b1b;
     --text-dark: #1a1a1a;
-    --text-light: #666666;
-    --bg-light: #f0f0f0;
+    --text-light: #4b5563;
+    --bg-light: #f9fafb;
     --white: #ffffff;
-    --border-color: #cccccc;
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+    --border-color: #e5e7eb;
+    --shadow: 0 2px 8px rgba(26, 54, 93, 0.1);
+    --shadow-lg: 0 8px 16px rgba(26, 54, 93, 0.15);
 }
 
 html {
@@ -37,7 +37,7 @@ body {
 
 /* ===== NAVBAR ===== */
 .navbar {
-    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1a365d 100%);
     padding: 1rem 0;
     position: sticky;
     top: 0;
@@ -213,7 +213,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: linear-gradient(135deg, #333333 0%, #555555 100%);
+    background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%);
     color: var(--white);
     padding: 0.6rem 1.2rem;
     border-radius: 20px;
@@ -277,7 +277,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: linear-gradient(135deg, #333333 0%, #555555 100%);
+    background: linear-gradient(135deg, #1a365d 0%, #0f172a 100%);
     color: var(--white);
     padding: 1rem 2.5rem;
     text-decoration: none;
@@ -292,7 +292,7 @@ body {
 .read-more-btn:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
-    background: linear-gradient(135deg, #555555 0%, #333333 100%);
+    background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%);
 }
 
 /* ===== NEWS SECTION ===== */
@@ -406,7 +406,7 @@ body {
 
 .trending-badge {
     left: 12px;
-    background: rgba(255, 107, 53, 0.9);
+    background: rgba(255, 87, 34, 0.9);
     display: flex;
     align-items: center;
     gap: 4px;
@@ -481,7 +481,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #333333, #555555);
+    background: linear-gradient(135deg, #1a365d, #991b1b);
     color: var(--white);
     display: flex;
     align-items: center;
@@ -497,7 +497,7 @@ body {
 
 /* ===== BREAKING NEWS ===== */
 .breaking-news {
-    background: linear-gradient(135deg, #333333 0%, #555555 100%);
+    background: linear-gradient(135deg, #991b1b 0%, #dc2626 100%);
     color: var(--white);
     padding: 1rem 0;
     margin: 2rem 0;
@@ -658,7 +658,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #333333, #555555);
+    background: linear-gradient(135deg, #1a365d, #991b1b);
     color: var(--white);
     display: flex;
     align-items: center;
@@ -750,7 +750,7 @@ body {
 .author-section {
     margin: 2rem 0;
     padding: 2rem;
-    background: linear-gradient(135deg, rgba(0, 78, 137, 0.05), rgba(25, 130, 196, 0.05));
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.06), rgba(153, 27, 27, 0.04));
     border-radius: 8px;
 }
 
@@ -780,7 +780,7 @@ body {
 }
 
 .follow-btn {
-    background: linear-gradient(135deg, #333333, #555555);
+    background: linear-gradient(135deg, #1a365d, #991b1b);
     color: var(--white);
     border: none;
     padding: 0.6rem 1.5rem;
@@ -870,7 +870,7 @@ body {
 }
 
 .newsletter-widget {
-    background: linear-gradient(135deg, #333333, #555555);
+    background: linear-gradient(135deg, #1a365d, #991b1b);
     color: var(--white);
 }
 
@@ -946,7 +946,7 @@ body {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #333333, #555555);
+    background: linear-gradient(135deg, #1a365d, #991b1b);
     color: var(--white);
     display: flex;
     align-items: center;
@@ -1033,7 +1033,7 @@ body {
 }
 
 .social-icon:hover {
-    background: linear-gradient(135deg, #333333, #555555);
+    background: linear-gradient(135deg, #1a365d, #991b1b);
     transform: translateY(-5px);
 }
 
