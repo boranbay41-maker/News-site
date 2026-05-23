@@ -27,7 +27,7 @@ def home(request):
     
     return render(request, 'home.html', {'news': page_obj, 'categories': categories, 'page_obj': page_obj})
 
-def search_autocomplate(request):
+def search_autocomplete(request):
     q = request.GET.get('q', '').strip()
     if len(q) < 2:
         return JsonResponse({'results': []})

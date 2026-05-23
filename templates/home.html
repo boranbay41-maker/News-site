@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-logo">
@@ -28,21 +27,20 @@
                     >
                     <button type="submit"><i class="fas fa-search"></i></button>
                 </form>
-                    <div id="searchDropdown" style="
-                            display: none;
-                            position: absolute;
-                            top: 100%;
-                            left: 0;
-                            right: 0;
-                            background: #1e1e1e;
-                            border: 1px solid #444;
-                            border-top: none;
-                            border-radius: 0 0 8px 8px;
-                            z-index: 9999;
-                            overflow: hidden;
-                            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-                        "></div>
-
+                <div id="searchDropdown" style="
+                        display: none;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        right: 0;
+                        background: #1e1e1e;
+                        border: 1px solid #444;
+                        border-top: none;
+                        border-radius: 0 0 8px 8px;
+                        z-index: 9999;
+                        overflow: hidden;
+                        box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+                    "></div>
             </div>
 
             <button class="hamburger-btn" id="hamburger">
@@ -67,8 +65,8 @@
     </nav>
 
     <script>
-        // Hamburger menu toggle
         document.addEventListener('DOMContentLoaded', function() {
+            // Гамбургер меню
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('navMenu');
             
@@ -78,7 +76,6 @@
                     hamburger.classList.toggle('active');
                 });
                 
-                // Close menu when a link is clicked
                 const navLinks = navMenu.querySelectorAll('.nav-link');
                 navLinks.forEach(link => {
                     link.addEventListener('click', function() {
@@ -87,11 +84,79 @@
                     });
                 });
             }
+
+            // Автокомплит поиска
+            const searchInput = document.getElementById('searchInput');
+            const searchDropdown = document.getElementById('searchDropdown');
+
+            if (searchInput && searchDropdown) {
+                searchInput.addEventListener('input', function() {
+                    const query = this.value.trim();
+                    if (query.length < 2) {
+                        searchDropdown.style.display = 'none';
+                        return;
+                    }
+
+                    fetch(`/search-autocomplete/?q=${encodeURIComponent(query)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            searchDropdown.innerHTML = '';
+
+                            // ✅ ИСПРАВЛЕНО: data.results вместо data
+                            if (data.results && data.results.length > 0) {
+                                data.results.forEach(item => {
+                                    const div = document.createElement('div');
+                                    div.style.padding = '10px 15px';
+                                    div.style.cursor = 'pointer';
+                                    div.style.color = '#fff';
+                                    div.style.borderBottom = '1px solid #333';
+
+                                    div.innerHTML = `
+                                        <div style="font-size: 14px;">${item.title}</div>
+                                        ${item.category ? `<div style="font-size: 11px; color: #aaa; margin-top: 2px;">${item.category}</div>` : ''}
+                                    `;
+                                    
+                                    div.addEventListener('mouseenter', () => div.style.background = '#333');
+                                    div.addEventListener('mouseleave', () => div.style.background = 'transparent');
+                                    
+                                    // ✅ ИСПРАВЛЕНО: переход на страницу новости
+                                    div.addEventListener('click', () => {
+                                        window.location.href = item.url;
+                                    });
+
+                                    searchDropdown.appendChild(div);
+                                });
+                                searchDropdown.style.display = 'block';
+                            } else {
+                                const empty = document.createElement('div');
+                                empty.style.padding = '10px 15px';
+                                empty.style.color = '#aaa';
+                                empty.style.fontSize = '14px';
+                                empty.innerText = 'Ничего не найдено';
+                                searchDropdown.appendChild(empty);
+                                searchDropdown.style.display = 'block';
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Ошибка поиска:', err);
+                            searchDropdown.style.display = 'none';
+                        });
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+                        searchDropdown.style.display = 'none';
+                    }
+                });
+
+                document.getElementById('searchForm').addEventListener('submit', function() {
+                    searchDropdown.style.display = 'none';
+                });
+            }
         });
     </script>
 
-    <!-- Featured Hero Section -->
-    {% if news %}
+    {% if news and page_obj.number == 1 %}
     {% with featured=news.0 %}
     <section class="hero-section">
         <div class="hero-container">
@@ -113,13 +178,13 @@
                 <p class="hero-excerpt">{{ featured.content|truncatewords:30 }}</p>
                 <div class="hero-meta">
                     <span class="meta-item">
-                        <i class="fas fa-user"></i> {{ featured.author.name }} {{ featured.author.surname }}
+                        <i class="fas fa-user"></i> {{ featured.author.name }} {{ featured.author.surname|default_if_none:"" }}
                     </span>
                     <span class="meta-item">
                         <i class="fas fa-calendar"></i> {{ featured.created_at|date:"d M Y" }}
                     </span>
                 </div>
-                <a href="/product/{{ featured.id }}/" class="read-more-btn">
+                <a href="{% url 'product_detail' featured.id %}" class="read-more-btn">
                     Читать полностью <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -128,9 +193,7 @@
     {% endwith %}
     {% endif %}
 
-    <!-- Main Content -->
     <div class="container">
-        <!-- Latest News Section -->
         <section class="news-section">
             <div class="section-header">
                 <h2 class="section-title">
@@ -141,7 +204,8 @@
 
             <div class="news-grid">
                 {% for item in news %}
-                    {% if not forloop.first %}
+                    {% if page_obj.number == 1 and forloop.first %}
+                    {% else %}
                     <article class="news-card">
                         <div class="card-image-wrapper">
                             {% if item.image %}
@@ -160,11 +224,11 @@
                             <div class="card-footer">
                                 <div class="card-meta">
                                     <div>
-                                        <div class="author-name">{{ item.author.name }}</div>
+                                        <div class="author-name">{{ item.author.name }} {{ item.author.surname|default_if_none:"" }}</div>
                                         <div class="card-date">{{ item.created_at|date:"d M" }}</div>
                                     </div>
                                 </div>
-                                <a href="/product/{{ item.id }}/" class="card-link" title="Читать">
+                                <a href="{% url 'product_detail' item.id %}" class="card-link" title="Читать">
                                     <i class="fas fa-chevron-right"></i>
                                 </a>
                             </div>
@@ -174,7 +238,6 @@
                 {% endfor %}
             </div>
 
-            <!-- Pagination -->
             <div class="pagination" style="text-align: center; margin-top: 40px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
                 {% if page_obj.has_previous %}
                     <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="pagination-btn" style="padding: 10px 15px; background: #333333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">« Первая</a>
@@ -190,7 +253,6 @@
             </div>
         </section>
 
-        <!-- Breaking News Bar -->
         <section class="breaking-news">
             <div class="breaking-label">
                 <i class="fas fa-exclamation-circle"></i> СРОЧНОЕ
@@ -204,43 +266,24 @@
             </div>
         </section>
 
-        <!-- Categories Section -->
         <section class="categories-section">
             <h2 class="section-title">Основные категории</h2>
             <div class="categories-grid">
+                {% for category in categories|slice:":4" %}
                 <div class="category-item">
                     <div class="category-icon">
-                        <i class="fas fa-globe"></i>
+                        <i class="fas fa-hashtag"></i>
                     </div>
-                    <h3>Мир</h3>
-                    <p>Международные новости</p>
+                    <h3>{{ category.name }}</h3>
+                    <p><a href="{% url 'category_news' category.id %}" style="color: inherit; text-decoration: none;">Перейти к новостям</a></p>
                 </div>
-                <div class="category-item">
-                    <div class="category-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Экономика</h3>
-                    <p>Финансовые новости</p>
-                </div>
-                <div class="category-item">
-                    <div class="category-icon">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-                    <h3>Технологии</h3>
-                    <p>Инновации и IT</p>
-                </div>
-                <div class="category-item">
-                    <div class="category-icon">
-                        <i class="fas fa-football-ball"></i>
-                    </div>
-                    <h3>Спорт</h3>
-                    <p>Спортивные новости</p>
-                </div>
+                {% empty %}
+                <p style="color: #999;">Категории пока не добавлены.</p>
+                {% endfor %}
             </div>
         </section>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-column">
@@ -250,10 +293,9 @@
             <div class="footer-column">
                 <h4>Категории</h4>
                 <ul>
-                    <li><a href="#">Мир</a></li>
-                    <li><a href="#">Экономика</a></li>
-                    <li><a href="#">Технологии</a></li>
-                    <li><a href="#">Спорт</a></li>
+                    {% for category in categories %}
+                    <li><a href="{% url 'category_news' category.id %}">{{ category.name }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="footer-column">
