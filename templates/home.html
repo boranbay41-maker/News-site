@@ -269,13 +269,35 @@
         <section class="categories-section">
             <h2 class="section-title">Основные категории</h2>
             <div class="categories-grid">
-                {% for category in categories|slice:":4" %}
+                {% for category in categories|slice:":5" %}
                 <div class="category-item">
                     <div class="category-icon">
-                        <i class="fas fa-hashtag"></i>
+                        {% if category.name == "Спорт" %}
+                            <i class="fas fa-futbol"></i>
+                        {% elif category.name == "Технологии" %}
+                            <i class="fas fa-microchip"></i>
+                        {% elif category.name == "Мир" %}
+                            <i class="fas fa-globe"></i>
+                        {% elif category.name == "Узбекистан" %}
+                            <i class="fas fa-map-marker-alt"></i>
+                        {% elif category.name == "Экономика" %}
+                            <i class="fas fa-chart-line"></i>
+                        {% else %}
+                            <i class="fas fa-newspaper"></i>
+                        {% endif %}
                     </div>
                     <h3>{{ category.name }}</h3>
-                    <p><a href="{% url 'category_news' category.id %}" style="color: inherit; text-decoration: none;">Перейти к новостям</a></p>
+                    <p>
+                        <a href="{% url 'category_news' category.id %}" style="color: inherit; text-decoration: none;">
+                            {% if category.name == "Спорт" %}Спортивные новости
+                            {% elif category.name == "Технологии" %}Технологические новости
+                            {% elif category.name == "Мир" %}Международные новости
+                            {% elif category.name == "Узбекистан" %}Новости Узбекистана
+                            {% elif category.name == "Экономика" %}Финансовые новости
+                            {% else %}Перейти к новостям
+                            {% endif %}
+                        </a>
+                    </p>
                 </div>
                 {% empty %}
                 <p style="color: #999;">Категории пока не добавлены.</p>
