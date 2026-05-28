@@ -27,10 +27,9 @@
             </button>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Главная</a></li>
-                <li><a href="#" class="nav-link"><i class="fas fa-globe"></i> Мир</a></li>
-                <li><a href="#" class="nav-link"><i class="fas fa-flag"></i> Узбекистан</a></li>
-                <li><a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Экономика</a></li>
-                <li><a href="#" class="nav-link"><i class="fas fa-microchip"></i> Технологии</a></li>
+                {% for category in categories %}
+                <li><a href="{% url 'category_news' category.id %}" class="nav-link">{{ category.name }}</a></li>
+                {% endfor %}
             </ul>
         </div>
     </nav>

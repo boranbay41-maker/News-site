@@ -75,7 +75,8 @@ def category_news(request, category_id):
 
 def product_detail(request, slug):
     news = get_object_or_404(News, slug=slug)
-    return render(request, 'product_detail.html', {'news': news})
+    categories = Category.objects.all()
+    return render(request, 'product_detail.html', {'news': news, 'categories': categories})
 
 
 def register(request):
