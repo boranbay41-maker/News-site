@@ -44,15 +44,15 @@ def search_autocomplete(request):
         .filter(is_published=True)
         .distinct()
         .order_by('-created_at')
-        .values('id', 'title', 'category__name')[:8]
+        .values('slug', 'title', 'category__name')[:8]
     )
 
     data = [
         {
-            'id': n['id'],
+            'id': n['slug'],
             'title': n['title'],
             'category': n['category__name'] or '',
-            'url': f"/product/{n['id']}/"
+            'url': f"/product/{n['slug']}/"
         }
         for n in results
     ]
@@ -73,8 +73,8 @@ def category_news(request, category_id):
     return render(request, 'home.html', {'news': page_obj, 'categories': categories, 'selected_category': category, 'page_obj': page_obj})
 
 
-def product_detail(request, pk):
-    news = get_object_or_404(News, pk=pk)
+def product_detail(request, slug):
+    news = get_object_or_404(News, slug=slug)
     return render(request, 'product_detail.html', {'news': news})
 
 

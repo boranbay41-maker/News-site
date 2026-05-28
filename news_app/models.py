@@ -1,5 +1,7 @@
 from django.utils import timezone
 from django.db import models
+from slugify import slugify
+
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
@@ -25,6 +27,7 @@ class Tags(models.Model):
         return self.tag
     
     
+    
 class News(models.Model):
     title = models.CharField(max_length=200, verbose_name='Title')
     content = models.TextField()
@@ -34,6 +37,7 @@ class News(models.Model):
     tags = models.ManyToManyField(Tags)
     created_at = models.DateTimeField(default=timezone.now)
     is_published = models.BooleanField(default=True, verbose_name='Published')
+    slug = models.SlugField(max_length=200, unique=True, blank=True, default='')
 
     
     def __str__(self):
@@ -45,6 +49,12 @@ class News(models.Model):
         permissions = [
             ('publish_news', 'Может публиковать новости'),
         ]
+        
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title) 
+        super().save(*args, **kwargs)
     
     
 

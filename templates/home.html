@@ -184,7 +184,7 @@
                         <i class="fas fa-calendar"></i> {{ featured.created_at|date:"d M Y" }}
                     </span>
                 </div>
-                <a href="{% url 'product_detail' featured.id %}" class="read-more-btn">
+                <a href="{% url 'product_detail' slug=featured.slug %}" class="read-more-btn">
                     Читать полностью <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -228,7 +228,7 @@
                                         <div class="card-date">{{ item.created_at|date:"d M" }}</div>
                                     </div>
                                 </div>
-                                <a href="{% url 'product_detail' item.id %}" class="card-link" title="Читать">
+                                <a href="{% url 'product_detail' slug=item.slug %}" class="card-link" title="Читать">
                                     <i class="fas fa-chevron-right"></i>
                                 </a>
                             </div>
