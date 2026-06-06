@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from .models import News, Category
+from .forms import RegistrationForm, User_Update_Form, Profile_Update_Form
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.contrib import messages
+
 
 def home(request):
     poisk = request.GET.get('q')
@@ -79,24 +82,32 @@ def product_detail(request, slug):
     return render(request, 'product_detail.html', {'news': news, 'categories': categories})
 
 
+@login_required
+def profile_view(request):
+    if request.method == 'POST':
+        u_form = User_Update_Form(request.POST, instance=request.user)
+        p_form = Profile_Update_Form(request.POST, request.FILES, instance=request.user.user_profile)
+    if u_form.is_valid() and p_form.is_valid():
+        u_form.save()
+        p_form.save()
+        messages.success(request, 'Ваш профиль успешно обновлен!')
+        return redirect('profile')
+    else:
+        u_form = User_Update_Form(instance=request.user)
+        p_form = Profile_Update_Form(instance=request.user.user_profile)
+    return render(request, 'profile.html', {'u_form': u_form, 'p_form': p_form})
+
 def register(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        password_confirm = request.POST.get('password_confirm')
-        
-        if password != password_confirm:
-            return render(request, 'register.html', {'error': 'Пароли не совпадают'})
-        
-        if User.objects.filter(username=username).exists():
-            return render(request, 'register.html', {'error': 'Пользователь уже существует'})
-        
-        user = User.objects.create_user(username=username, email=email, password=password)
-        login(request, user)
-        return redirect('home')
-    
-    return render(request, 'register.html')
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = RegistrationForm()
+
+    return render(request, 'register.html', {'form': form})
 
 
 def login_view(request):
