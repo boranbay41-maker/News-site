@@ -87,15 +87,16 @@ def profile_view(request):
     if request.method == 'POST':
         u_form = User_Update_Form(request.POST, instance=request.user)
         p_form = Profile_Update_Form(request.POST, request.FILES, instance=request.user.user_profile)
-    if u_form.is_valid() and p_form.is_valid():
-        u_form.save()
-        p_form.save()
-        messages.success(request, 'Ваш профиль успешно обновлен!')
-        return redirect('profile')
+        if u_form.is_valid() and p_form.is_valid():  
+            u_form.save()
+            p_form.save()
+            messages.success(request, 'Ваш профиль успешно обновлен!')
+            return redirect('profile')
     else:
         u_form = User_Update_Form(instance=request.user)
         p_form = Profile_Update_Form(instance=request.user.user_profile)
     return render(request, 'profile.html', {'u_form': u_form, 'p_form': p_form})
+
 
 def register(request):
     if request.method == 'POST':
