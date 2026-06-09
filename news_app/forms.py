@@ -6,6 +6,16 @@ from news_app.models import User_Profile
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
+    password1 = forms.CharField(
+        label="Пароль",
+        widget=forms.PasswordInput,
+        help_text="Пароль должен содержать минимум 8 символов"
+    )
+    password2 = forms.CharField(
+        label="Подтверждение пароля",
+        widget=forms.PasswordInput,
+        help_text="Введите пароль еще раз"
+    )
 
     class Meta:
         model = User
@@ -16,6 +26,13 @@ class RegistrationForm(UserCreationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError('Пользователь с таким email уже существует')
         return email
+    
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Пароли не совпадают")
+        return password2
 
 
 class User_Update_Form(forms.ModelForm):

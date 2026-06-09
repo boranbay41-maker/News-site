@@ -1,62 +1,9 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ news.title }} - NewsTalk</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-logo">
-                <i class="fas fa-newspaper"></i>
-                <span>NewsTalk</span>
-            </div>
-            <div class="nav-search">
-                <input type="text" placeholder="Поиск новостей...">
-                <button><i class="fas fa-search"></i></button>
-            </div>
-            <button class="hamburger-btn" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="/" class="nav-link"><i class="fas fa-home"></i> Главная</a></li>
-                {% for category in categories %}
-                <li><a href="{% url 'category_news' category.id %}" class="nav-link">{{ category.name }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </nav>
 
-    <script>
-        // Hamburger menu toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('navMenu');
-            
-            if (hamburger) {
-                hamburger.addEventListener('click', function() {
-                    navMenu.classList.toggle('active');
-                    hamburger.classList.toggle('active');
-                });
-                
-                // Close menu when a link is clicked
-                const navLinks = navMenu.querySelectorAll('.nav-link');
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function() {
-                        navMenu.classList.remove('active');
-                        hamburger.classList.remove('active');
-                    });
-                });
-            }
-        });
-    </script>
+{% block title %}{{ news.title }} - NewsTalk{% endblock %}
+
+{% block content %}
 
     <!-- Breadcrumb -->
     <div class="breadcrumb">
@@ -161,38 +108,13 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-column">
-                <h4>О сайте</h4>
-                <p>NewsTalk - новостной портал</p>
-            </div>
-            <div class="footer-column">
-                <h4>Категории</h4>
-                <ul>
-                    <li><a href="#">Все новости</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Следите за нами</h4>
-                <div class="social-icons">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 NewsTalk. Все права защищены.</p>
-        </div>
-    </footer>
+{% endblock %}
 
-    <script>
-        document.querySelector('.copy-link')?.addEventListener('click', function() {
-            navigator.clipboard.writeText(window.location.href);
-            alert('Ссылка скопирована!');
-        });
-    </script>
-</body>
-</html>
+{% block extra_js %}
+<script>
+    document.querySelector('.copy-link')?.addEventListener('click', function() {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Ссылка скопирована!');
+    });
+</script>
+{% endblock %}

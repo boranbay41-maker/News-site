@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib import messages
-
+from .models import User_Profile
 
 def home(request):
     poisk = request.GET.get('q')
@@ -82,7 +82,7 @@ def product_detail(request, slug):
     return render(request, 'product_detail.html', {'news': news, 'categories': categories})
 
 
-@login_required
+@login_required(login_url='login')
 def profile_view(request):
     if request.method == 'POST':
         u_form = User_Update_Form(request.POST, instance=request.user)
@@ -92,10 +92,17 @@ def profile_view(request):
             p_form.save()
             messages.success(request, 'Ваш профиль успешно обновлен!')
             return redirect('profile')
+        else:
+            for field, errors in u_form.errors.items():
+                for error in errors:
+                    messages.error(request, f"User form {field}: {error}")
+            for field, errors in p_form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Profile form {field}: {error}")
     else:
         u_form = User_Update_Form(instance=request.user)
         p_form = Profile_Update_Form(instance=request.user.user_profile)
-    return render(request, 'profile.html', {'u_form': u_form, 'p_form': p_form})
+    return render(request, 'profil.html', {'u_form': u_form, 'p_form': p_form})
 
 
 def register(request):
@@ -104,7 +111,12 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            messages.success(request, 'Регистрация успешна! Добро пожаловать!')
             return redirect('home')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
     else:
         form = RegistrationForm()
 
@@ -119,9 +131,11 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            User_Profile.objects.get_or_create(user=user)
+            messages.success(request, 'Успешный вход! Добро пожаловать!')
             return redirect('home')
         else:
-            return render(request, 'login.html', {'error': 'Неверные учётные данные'})
+            messages.error(request, 'Неверные учётные данные. Проверьте имя пользователя и пароль.')
     
     return render(request, 'login.html')
 
