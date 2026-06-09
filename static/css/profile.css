@@ -1,0 +1,388 @@
+/* Profile and Auth Page Styles */
+
+/* ==================== NAVBAR PROFILE DROPDOWN ==================== */
+
+.profile-dropdown-wrapper {
+    position: relative;
+    list-style: none;
+}
+
+.profile-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: inherit;
+    font-family: inherit;
+    font-size: 14px;
+    transition: background 0.15s;
+}
+
+.profile-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.profile-avatar-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-avatar-initials {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #3b82f6;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.profile-chevron {
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 200px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    z-index: 999;
+    overflow: hidden;
+}
+
+.profile-dropdown.open {
+    display: block;
+}
+
+.profile-dropdown-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.profile-dropdown-header strong {
+    font-size: 14px;
+    color: #111;
+}
+
+.profile-dropdown-header span {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.profile-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+    color: #111;
+    text-decoration: none;
+    transition: background 0.12s;
+}
+
+.profile-dropdown-item:hover {
+    background: #f9fafb;
+}
+
+.profile-dropdown-item i {
+    width: 16px;
+    color: #6b7280;
+}
+
+.profile-dropdown-divider {
+    height: 1px;
+    background: #f0f0f0;
+}
+
+.profile-dropdown-logout {
+    color: #dc2626;
+}
+
+.profile-dropdown-logout i {
+    color: #dc2626;
+}
+
+/* ==================== PROFILE CONTAINER ==================== */
+.profile-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.profile-container h2 {
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #111;
+}
+
+/* Profile Avatar */
+.profile-avatar-wrapper {
+    text-align: center;
+    margin: 20px 0 30px;
+}
+
+.profile-avatar-wrapper img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+}
+
+/* Profile Form */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.profile-form-group input,
+.profile-form-group textarea {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.profile-form-group input:focus,
+.profile-form-group textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.profile-form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Submit Button */
+.profile-submit-btn {
+    padding: 12px 20px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.profile-submit-btn:hover {
+    background: #0056b3;
+}
+
+.profile-submit-btn:active {
+    background: #003d82;
+}
+
+/* Alert Messages */
+.alert-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.alert-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.alert-message.success {
+    background: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.alert-message.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border-color: #bee5eb;
+}
+
+.alert-message.warning {
+    background: #fff3cd;
+    color: #856404;
+    border-color: #ffeeba;
+}
+
+/* Error Text under fields */
+.error-text {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Auth Pages Container (Login/Register) */
+.auth-page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.auth-page-content {
+    flex: 1;
+}
+
+.auth-container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #111;
+    font-size: 24px;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-group .error-text {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Submit Button */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: #0056b3;
+}
+
+.btn-submit:active {
+    background: #003d82;
+}
+
+/* Auth Link */
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.auth-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.auth-link a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Error Alert */
+.error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+}
+
+.error p {
+    margin: 5px 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .profile-container {
+        margin: 20px 10px;
+    }
+
+    .auth-container {
+        margin: 40px 15px;
+        padding: 20px;
+    }
+
+    .profile-container h2 {
+        font-size: 22px;
+    }
+
+    .auth-container h2 {
+        font-size: 20px;
+    }
+}

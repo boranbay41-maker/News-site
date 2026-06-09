@@ -1,36 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block title %}Личный кабинет - NewsTalk{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
 {% block content %}
-<div class="container" style="max-width: 600px; margin: 40px auto;">
+<div class="profile-container">
     <h2>Личный кабинет — {{ request.user.username }}</h2>
 
     {% if messages %}
         {% for message in messages %}
-            <div class="{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}" 
-                 style="padding: 10px; margin-bottom: 15px; border-radius: 5px; 
-                         {% if message.tags == 'error' %}background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;{% else %}background: #d4edda; color: #155724; border: 1px solid #c3e6cb;{% endif %}">
+            <div class="alert-message {% if message.tags %}{{ message.tags }}{% else %}info{% endif %}">
                 {{ message }}
             </div>
         {% endfor %}
     {% endif %}
 
     {% if request.user.user_profile.profile_image %}
-        <div style="text-align: center; margin: 20px 0;">
-            <img src="{{ request.user.user_profile.profile_image.url }}" width="100" style="border-radius: 50%; object-fit: cover;">
+        <div class="profile-avatar-wrapper">
+            <img src="{{ request.user.user_profile.profile_image.url }}" alt="Аватар профиля">
         </div>
     {% endif %}
 
-    <form method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 15px;">
+    <form method="POST" enctype="multipart/form-data" class="profile-form">
         {% csrf_token %}
         
-        <div style="display: flex; flex-direction: column;">
+        <div class="profile-form-group">
             {{ u_form.as_p }}
         </div>
         
-        <div style="display: flex; flex-direction: column;">
+        <div class="profile-form-group">
             {{ p_form.as_p }}
         </div>
         
-        <button type="submit" style="padding: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">Сохранить</button>
+        <button type="submit" class="profile-submit-btn">Сохранить</button>
     </form>
 </div>
 {% endblock %}
